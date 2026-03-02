@@ -1,50 +1,71 @@
-import React, {useState} from 'react'; //observa o estado da aplicação
-//ciclo de vida da aplicação: useEffect
-import {StyleSheet, Text, TextInput, TouchableOpacity, Alert, View} from 'react-native'; 
-//para estilizações //para mostrar textos //para inputs //para botões //alertas/avisos //Views são como "divs"
-import { useNavigation } from '@react-navigation/native';
-// para navegações a partir de stacks/pilhas 
+import React, { useState } from "react";
+import { StyleSheet, Text, TextInput, TouchableOpacity, Alert, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const Login = () => {
-    const [email, setEmail] = useState(""); //crio duas constantes, set->setar, useState-> estado atual/inicial vazio
-    const [password, setPassword] = useState("");
-    const navigation = useNavigation(); //crio a constante navigation (navigation é um nome), para poder usar o useNavigation
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigation = useNavigation();
 
-return(
-   <View style={styles.container}>
-        <TextInput
-            style={styles.input}
-            placeholder="E-mail:"
-            value={email}
-            onChangeText={setEmail}
-        />
-        <TextInput/>
-        <TextInput
-            style={styles.input}
-            placeholder="Senha:"
-            value={password}
-            onChangeText={setPassword}
-        />
-        <TextInput/>
-   </View> 
-)
-} 
+  const handleLogin = () => {
+    if (email === "lari@hotmail.com" && password === "123") {
+      navigation.navigate("main");
+    } else {
+      Alert.alert("Email ou senha inválidos");
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder="E-mail"
+        value={email}
+        onChangeText={setEmail}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Senha"
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
+      />
+
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Entrar</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-container:{
+  container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#FFF"
-},
-input: {
-    borderWidth:1,
-    borderColor: " #ccc",
+    backgroundColor: "#FFF",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
     borderRadius: 5,
     padding: 10,
     marginVertical: 10,
-    width: "80%"
-}
+    width: "80%",
+  },
+  button: {
+    backgroundColor: "purple",
+    borderRadius: 5,
+    padding: 10,
+    width: "80%",
+    alignItems: "center",
+    marginTop: 20
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
 });
 
 export default Login;
